@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="BimanualShift: A Modular Transfer Framework for Generalizing Unimanual Policies to Bimanual Manipulation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BimanualShift: A Modular Transfer Framework for Generalizing Unimanual Policies to Bimanual Manipulation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/fontawesome.all.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">BimanualShift: A Modular Transfer Framework for Generalizing Unimanual Policies to Bimanual Manipulation</h1>
+            <div class="container">
+              <div class="columns is-centered">
+                <div class="column">
+                  <div class="is-size-5 publication-authors has-text-centered">
+                    <span class="author-block">
+                      Yechen Fan,
+                    </span>
+                    <span class="author-block">
+                      Xianyou Ji,
+                    </span>
+                    <span class="author-block">
+                      Chenyang Song,
+                    </span>
+                    <span class="author-block">
+                      Huixin He,
+                    </span>
+                    <span class="author-block">
+                      Haibin Wu,
+                    </span>
+                    <span class="author-block">
+                      Jinhua Ye<sup>†</sup>,
+                    </span>
+                    <span class="author-block">
+                      Gengfeng Zheng<sup>†</sup>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>†</sup>Corresponding authors</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                        <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href=""
+                      class="external-link button is-normal is-rounded is-dark" target="_blank">
+                      <span class="icon">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 viewBox="0 0 428.108 428.108" style="enable-background:new 0 0 428.108 428.108;" xml:space="preserve"><path fill="currentColor" id="XMLID_1137_" d="M236.503,387.867c0,3.866-3.134,7-7,7h-30.898c-3.866,0-7-3.134-7-7s3.134-7,7-7h30.898	C233.369,380.867,236.503,384,236.503,387.867z M314.878,144.35c0,12.285-4.131,23.625-11.076,32.702	c7.079,13.78,11.076,29.392,11.076,45.92c0,55.595-45.229,100.825-100.825,100.825c-55.595,0-100.825-45.23-100.825-100.825	c0-54.853,44.028-99.615,98.601-100.802c8.473-18.695,27.312-31.733,49.137-31.733C290.693,90.437,314.878,114.623,314.878,144.35z	 M221.054,144.35c0,22.008,17.904,39.913,39.912,39.913c9.671,0,18.551-3.458,25.466-9.202	c-14.213-21.399-37.658-36.167-64.602-38.569C221.32,139.033,221.054,141.661,221.054,144.35z M300.878,222.972	c0-12.638-2.715-24.655-7.591-35.498c-9.012,6.772-20.206,10.789-32.321,10.789c-29.728,0-53.913-24.186-53.913-53.913	c0-2.707,0.201-5.368,0.588-7.97c-44.893,3.293-80.413,40.872-80.413,86.592c0,47.876,38.949,86.825,86.825,86.825	S300.878,270.848,300.878,222.972z M300.878,144.35c0-22.008-17.904-39.913-39.912-39.913c-14.163,0-26.628,7.417-33.714,18.569	c28.1,3.689,52.593,18.996,68.486,40.923C299.01,158.141,300.878,151.46,300.878,144.35z M252.177,355.057h-76.244	c-3.866,0-7,3.134-7,7s3.134,7,7,7h76.244c3.866,0,7-3.134,7-7S256.043,355.057,252.177,355.057z M379.295,49.957v371.151	c0,3.866-3.134,7-7,7H55.813c-3.866,0-7-3.134-7-7V49.957c0-3.866,3.134-7,7-7h68.925l86.236-42.243	c1.943-0.951,4.216-0.951,6.159,0l86.236,42.243h68.925C376.161,42.957,379.295,46.09,379.295,49.957z M156.563,42.957h114.983	l-57.492-28.162L156.563,42.957z M365.295,56.957h-63.404c-0.098,0.003-0.196,0.003-0.296,0H126.514	c-0.099,0.002-0.198,0.002-0.296,0H62.813v357.151h302.482V56.957z"/><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>                    </span>
+                      <span>Poster</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#"
+                    class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                        <i class="fab fa-twitter"></i>
+                    </span>
+                    <span>Summary</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/yechen056/BimanualShift" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body" style="display: flex; justify-content: center; align-items: center;">
+        <video style="width:100%; height:auto; margin: 0%;" controls muted loading="lazy" autoplay loop playsinline>
+          <source src="./static/videos/demo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">Overview</h2>
+          <div style="display: flex; justify-content: center;">
+            <div style="display: flex; justify-content: center;">
+              <img src="./static/images/head.jpg" alt="Abstract image" style="max-width: 100%; height: auto; margin: 10px;">
+            </div>
+          </div>
+          <p style="text-align: justify;">
+            BimanualShift achieves skill transfer from arbitrary pretrained unimanual policies to complex bimanual manipulation tasks by adapting fully frozen unimanual policy priors.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">BimanualShift Framework</h2>
+          <div class="has-text-centered">
+            <img src="./static/images/framework.jpg" alt="Framework" class="image is-fullwidth">
+          </div>
+          <p class="content has-text-justified mt-4">
+            The framework is built upon frozen pretrained unimanual policies and consists of three core learnable modules. Module 1 (Visual Tracker) uses semantic masks to decouple the shared workspace into arm-specific visual inputs, eliminating attention interference. Module 2 (Action Generator) acts as an adapter that transforms high-level instructions into dynamic skill weights and compensation vectors, guiding the low-level policies to achieve coordinated behaviors. Module 3 (Skill Memory) retrieves relevant past experience and incorporates closed-loop reflection, enabling continual learning and rapid adaptation to new tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+      <div class="container">
+        <h2 class="title is-3" style="text-align: center;">Simulation in RLBench2</h2>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-two-thirds">
+            <div class="content has-text-justified">
+              <p>
+               We evaluate BimanualShift on six representative bimanual manipulation tasks from RLBench2. RLBench2 extends the widely used unimanual benchmark RLBench to bimanual manipulation scenarios. In simulation, we use two Franka Panda robotic arms equipped with parallel grippers. To fully cover the workspace, we deploy six noise-free RGB-D cameras (256 × 256 resolution) at the front, left shoulder, right shoulder, left wrist, right wrist, and top-down viewpoints.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-one-third has-text-centered">
+            <video controls autoplay loop muted playsinline src="./static/videos/Push Two Buttons.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+            <h3 class="video-title">Push Two Buttons</h3>
+          </div>
+          <div class="column is-one-fourth has-text-centered">
+            <video controls autoplay loop muted playsinline src="./static/videos/Straighten Rope.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+            <h3 class="video-title">Straighten Rope</h3>
+          </div>
+          <div class="column is-one-fourth has-text-centered">
+            <video controls autoplay loop muted playsinline src="./static/videos/Lift a Ball.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+            <h3 class="video-title">Lift a Ball</h3>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-one-third has-text-centered">
+            <video controls autoplay loop muted playsinline src="./static/videos/Pick Up a Plate.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+            <h3 class="video-title">Pick Up a Plate</h3>
+          </div>
+          <div class="column is-one-fourth has-text-centered">
+            <video controls autoplay loop muted playsinline src="./static/videos/Sweep DustPan.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+            <h3 class="video-title">Sweep DustPan</h3>
+          </div>
+          <div class="column is-one-fourth has-text-centered">
+            <video controls autoplay loop muted playsinline src="./static/videos/Take Tray Out of Oven.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+            <h3 class="video-title">Take Tray Out of Oven</h3>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-3" style="text-align: center;">Real-World Tasks</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-two-thirds">
+          <div class="content has-text-justified">
+            <p>
+            The evaluation involves eight real-world tasks covering diverse challenges: Flower Arrangement and Pouring Water require coordinated stability and smooth motion control; Toasting Completion and Vegetable Sorting test synchronous grasping and timing; Quilt Folding and Cable Routing demand robust control under deformable object dynamics; while Toaster Activation and Block Threading involve heterogeneous actions and high-precision spatial alignment in constrained spaces.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-multiline is-centered">
+        
+        <!-- 第一行 -->
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Vegetable Sorting</p>
+        </div>
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/2_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Pouring Water</p>
+        </div>
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/3_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Cable Routing</p>
+        </div>
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/4_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Block Threading</p>
+        </div>
+
+        <!-- 第二行 -->
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/5_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Toaster Activation</p>
+        </div>
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/6_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Toasting Completion</p>
+        </div>
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/7_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Flower Arrangement</p>
+        </div>
+        <div class="column is-one-quarter has-text-centered">
+          <video controls autoplay loop muted playsinline style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/8_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Quilt Folding</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-3" style="text-align: center;">Generalization</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-two-thirds">
+          <div class="content has-text-justified">
+            <p>
+              To evaluate the generalization capability of BimanualShift under unseen conditions, we conduct a generalization study on the Block Threading task using the best-performing configuration, BimanualShift-PerAct. Five types of perturbations are considered: unseen object color, unseen object shape, lighting change, left–right task exchange, and unseen background.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-container">
+          <div class="column is-narrow has-text-centered">
+            <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+              <source src="./static/videos/9_1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p>Unseen Object Color</p>
+          </div>
+          <div class="column is-narrow has-text-centered">
+            <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+              <source src="./static/videos/10_1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p>Unseen Object Shape</p>
+          </div>
+          <div class="column is-narrow has-text-centered">
+            <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+              <source src="./static/videos/11_1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p>Lighting Change</p>
+          </div>
+          <div class="column is-narrow has-text-centered">
+            <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+              <source src="./static/videos/12_1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p>Left-Right Task Exchange</p>
+          </div>
+          <div class="column is-narrow has-text-centered">
+            <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+              <source src="./static/videos/13_1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p>Unseen Background</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-3" style="text-align: center;">Reliability in Industrial Environments</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-two-thirds">
+          <div class="content has-text-justified">
+            <p>
+             To validate the reliability of BimanualShift in industrial deployment, we introduce two representative sources of real-world disturbances on the physical robot platform: 1) Extreme Glare, induced by a high-intensity point light to create severe reflections and shadows, and 2) Camera Perturbations, simulated by injecting a 1 cm translational error and a 2° rotational error into the camera extrinsic parameters.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-one-third has-text-centered">
+          <video controls autoplay loop muted playsinline src="./static/videos/14_1.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+          <h3 class="video-title">Extreme Glare</h3>
+        </div>
+        <div class="column is-one-third has-text-centered">
+          <video controls autoplay loop muted playsinline src="./static/videos/15_1.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+          <h3 class="video-title">Camera Perturbation</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-3" style="text-align: center;">Lifelong Learning Capability</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-two-thirds">
+          <div class="content has-text-justified">
+            <p>
+              To evaluate the lifelong learning capability of the skill memory module in BimanualShift, we construct a long-horizon task that requires sequential composition of multiple actions, after the model has learned the Toasting Completion and Toaster Activation skills. The task consists of four actions: Action 1 (inserting the toast into the toaster), Action 2 (pressing the activation button), Action 3 (grasping the toasted bread), and Action 4 (placing the bread onto a plate).            
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-one-third has-text-centered">
+          <video controls autoplay loop muted playsinline src="./static/videos/16_1.mp4" poster="./resources/loading-icon.gif" style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">></video>
+          <h3 class="video-title">Long-Horizon Toast Preparation Task</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">Citation</h2>
+        If you find our work helpful, please cite us:
+        <div style="position: relative;">
+            <pre><code id="bibtex-code">@article{liu2024rdt,
+    title={RDT-1B: a Diffusion Foundation Model for Bimanual Manipulation},
+    author={Liu, Songming and Wu, Lingxuan and Li, Bangguo and Tan, Hengkai and Chen, Huayu and Wang, Zhengyi and Xu, Ke and Su, Hang and Zhu, Jun},
+    journal={arXiv preprint arXiv:2410.07864},
+    year={2024}
+}</code></pre>
+            <button onclick="copyToClipboard()" style="position: absolute; top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+                粘贴图标，可以使用Font Awesome 图标库
+                <i class="fa fa-paste" aria-hidden="true"></i>
+            </button>
+        </div>
+        Thank you!
+    </div>
+</section> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<script>
+function copyToClipboard() {
+    var copyText = document.getElementById("bibtex-code").innerText;
+    navigator.clipboard.writeText(copyText).then(function() {
+        alert("Copied to clipboard!");
+    }, function(err) {
+        console.error('Unable to copy text:', err);
+    });
+}
+</script>
+
+  <!-- <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>We borrowed the page template from <a href="https://nerfies.github.io/"><span class="dnerf">Nerfies</span></a>.</p>
+      </div>
+    </div>
+  </footer> -->
+
+</body>
+
+</html>

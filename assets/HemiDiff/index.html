@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>HemiDiff</title>
+    <link rel="icon" type="image/png" href="assets/icon/HemiDiff.png">
+
+    <!-- Google Fonts - Mulish -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="static/css/video-gallery.css">
+    <link rel="stylesheet" href="static/css/teaser.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script src="https://kit.fontawesome.com/d383128d10.js"></script>
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script src="static/js/bulma-slider.min.js"></script>
+    <script src="static/js/index.js"></script>
+    <script src="static/js/fontawesome.min.js"></script>
+    <script src="static/js/video-gallery.js"></script>
+    <script src="static/js/teaser.js"></script>
+</head>
+
+<style>
+    #canvas-container {
+        background-color: rgb(178, 178, 178);
+    }
+    #canvas {
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+    }
+    .container{
+        max-width: 1000px;
+    }
+    .publication-title {
+        font-weight: 900 !important;
+    }
+    .title.is-1 {
+        font-weight: 900 !important;
+    }
+    .title.is-2 {
+        font-weight: 800 !important;
+    }
+    .title.is-3 {
+        font-weight: 800 !important;
+    }
+    figure figcaption {
+        font-size: 1.1rem !important;
+        margin-top: 1.5rem;
+    }
+    .instruction-text {
+        font-size: 1.1rem !important;
+    }
+    .instruction-text-center {
+        font-size: 1.1rem !important;
+        text-align: center;
+        font-weight: 700 !important;
+    }
+    .arrow {
+        border: solid black;
+        border-width: 0 4px 4px 0;
+
+        position: absolute;
+        top: 50%;
+
+        width: 1rem;
+        height: 1rem;
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        cursor: pointer;
+    }
+
+    .right {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        right: -25px;
+    }
+
+    .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        left: -25px;
+    }
+
+    .nav-item img {
+        max-width: 100%;
+         
+        height: auto;
+        display: block;
+    }
+
+    .nav-item p {
+        text-align: center;
+        font-family: 'Mulish', sans-serif;
+        font-weight: 500;
+        line-height: 1.5rem;
+        font-size: 1.1rem;
+        color: black;
+    }
+
+    .interactive-item {
+        align-content: center;
+    }
+
+    .interactive-item video {
+        max-width: 100%;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .interactive-item p {
+        text-align: center;
+        font-family: 'Mulish', sans-serif;
+        font-weight: 500;
+        line-height: 1.5rem;
+        font-size: 1.1rem;
+        color: black;
+    }
+
+    .interactive-container {
+        margin-bottom: 0rem;
+        display: grid !important;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+        gap: 0% 1%;
+        justify-content: center;
+    }
+
+    .generated-container {
+      margin-bottom: 1rem;
+      display: grid !important;
+      grid-template-columns: 100%;
+      grid-template-rows: 1fr;
+      gap: 0% 1%;
+      justify-content: center;
+  }
+
+    .teaser-item {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .two-column-section {
+      display: flex;
+      width: 100%;
+      border-left: 10px;
+      border-right: 10px;
+    }
+    
+    .two-column-section .column {
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .two-column-section .first-column {
+        width: 37%;
+        padding-left: 2%;
+    }
+    
+    .two-column-section .second-column {
+        width: 63%;
+        padding-right: 2%;
+    }
+
+    /* Image and Canvas Combination Styles */
+    .image-canvas-combo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0 0 0;
+      max-width: 1200px;
+    }
+
+    .image-canvas-combo .image-container {
+      flex: 0 0 auto;
+      text-align: center;
+    }
+
+    .image-canvas-combo .canvas-container {
+      flex: 0 0 auto;
+      position: relative;
+    }
+
+    .image-canvas-combo img,
+    .image-canvas-combo canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .author-text {
+        font-size: 1.1rem;
+        font-family: 'Mulish', sans-serif;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .image-canvas-combo {
+        flex-direction: column;
+      }
+    }
+
+    .resource-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background:rgb(35, 38, 59);
+        color: #FFFFFF !important;
+        border-radius: 30px;
+        padding: 8px 16px 9px;
+        transition: transform 200ms;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px, rgba(0, 0, 0, 0.24) 0px 1px 1px;
+        text-decoration: none;
+
+        font-family: 'Mulish', sans-serif;
+        font-weight: 500;
+        line-height: 1.5rem;
+        font-size: 1.0rem;
+    }
+
+    .resource-button:hover{
+        color: #FFFFFF !important;
+        text-decoration: underline;
+        text-decoration-color: #FFFFFF;
+    }
+
+    .resource-button:visited {
+        color: #FFFFFF !important;
+    }
+
+    .button-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+    .list-inline {
+        padding-left: 0;
+        list-style: none;
+    }
+    .list-inline-item {
+        display: inline-block;
+    }
+    .mt-m4 {
+        margin-top: -1.5rem;
+    }
+    .teaser-container {
+        margin-top: 1rem;
+    }
+
+    #gallery-buttons-nvs {
+        margin-top: 0;
+    }
+    
+    .canvas-load-button {
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        cursor: pointer;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .canvas-load-button:hover {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+    
+    .canvas-load-button img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .text-venue {
+    font-family: 'Mulish', sans-serif;
+    font-weight: 600;
+    line-height: 2.0rem;
+    font-size: 1.5rem;
+}
+
+    /* Video crop container for comparison section */
+    .video-crop-container {
+        width: 100%;
+        position: relative;
+    }
+
+    .video-crop-container video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    #gallery-buttons-results {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(260px, 1fr));
+        gap: 1.5rem;
+        justify-content: center;
+        justify-items: center;
+        width: 100%;
+    }
+
+    #gallery-buttons-results .scene-button {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    #gallery-buttons-results .scene-button img,
+    #gallery-buttons-results .scene-button video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .results-grid-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 1rem auto;
+    }
+
+    .results-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+        width: 100%;
+    }
+
+    .results-grid .scene-button {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .results-grid .scene-button video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .results-grid .scene-caption {
+        font-size: 1.1rem;
+        line-height: 1.3;
+        text-align: center;
+        font-family: 'Mulish', sans-serif;
+        font-weight: 500;
+        color: black;
+    }
+
+    .real-world-video-container {
+        width: 100%;
+        margin: 1rem auto 0 auto;
+    }
+
+    .real-world-video-container video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .comparison-grid-container {
+        width: 100%;
+        margin: 1rem auto 0 auto;
+    }
+
+    .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.8rem;
+        width: 100%;
+    }
+
+    .comparison-item video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
+
+<body>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title" style="display: flex; align-items: center; justify-content: center;">
+                            <img src="assets/HemiDiff.png" alt="HemiDiff" style="height: 1.5em; margin-right: 0.5rem;">
+                            <span style="font-size: 1.5em;">Hemispheric Diffusion:</span>
+                        </h1>
+                        <p class="title is-3" style="margin-top: 0.5rem;">A Compositional Generative Policy for Coordinated Bimanual Manipulation</p>
+                        <div class="author-text">
+                            <!-- Paper authors -->
+                            <span class="author-block">
+                                <a href="https://github.com/yechen056/" target="_blank">Yechen Fan</a><sup>1,2*</sup>,
+                                <a href="" target="_blank">Jinhua Ye</a><sup>1,2*</sup>,
+                                <a href="" target="_blank">Xianyou Ji</a><sup>1</sup>,
+                                <a href="" target="_blank">Haibin Wu</a><sup>1</sup>,
+                                <a href="" target="_blank">Gengfeng Zheng</a><sup>2†</sup>,
+                                <a href="" target="_blank">Huixin He</a><sup>3†</sup>
+                            </span>
+                            <br>
+                            <span class="author-block" style="font-size: 0.95rem; margin-top: 0.5rem;">
+                                <sup>*</sup>Equal contribution &nbsp;
+                                <sup>†</sup>Corresponding author
+                            </span>
+                            <br>
+                            <span class="author-block" style="font-size: 0.95rem; margin-top: 0.3rem;">
+                                <sup>1</sup> Fuzhou University &nbsp;&nbsp;
+                                <sup>2</sup> Fujian Key Laboratory of Special Intelligent Equipment Safety Measurement and Control &nbsp;&nbsp;
+                                <sup>3</sup> Huaqiao University
+                            </span>
+                            <br>
+                            <!-- <span class="author-block" style="font-weight: bold; font-size: 1.2rem; margin-top: 0.5rem;">
+                                CVPR 2026
+                            </span> -->
+                        </div>
+                        
+                        <!-- Resource buttons -->
+                        <div style="margin-top: 0.8rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                            <a href="" class="resource-button">
+                                <i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i>
+                                Paper
+                            </a>
+                            <a href="https://github.com/yechen056/Hemispheric-Diffusion" class="resource-button">
+                                <i class="fab fa-github" style="margin-right: 0.5rem;"></i>
+                                Code
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero teaser" style="margin-top: -4rem;">
+        <div class="hero-body">
+            <div class="container">
+                <figure class="image">
+                    <img src="assets/teaser.jpg" alt="Teaser" style="width: 100%; height: auto; display: block;">
+                    <figcaption>
+                        <strong>HemiDiff</strong> enhances robustness by using an asymmetric routing mechanism to mask failed modalities and dynamically adjust multimodal contributions without retraining, unlike standard early-fusion strategies.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <!--End teaser -->
+
+    <section class="hero teaser" style="margin-top: -4rem;">
+        <div class="hero-body">
+            <div class="container">
+                <figure class="image">
+                    <video controls autoplay muted loop style="width: 100%; height: auto; display: block;">
+                        <source src="assets/video/demo_video.mp4" type="video/mp4">
+                    </video>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h2 class="title is-2">Simulation in RLbench2</h2>
+                
+                <figure class="video">
+                    <figcaption>
+                        We conduct simulation experiments using RLBench2, an extension of RLBench specifically designed for bimanual manipulation. The benchmark includes six tasks: Lift Ball, Lift Tray, Push Box, Push Buttons, Put Item into Drawer and Straighten Rope.
+                </figure>
+
+                
+
+                <!-- Scene buttons grid -->
+                <div class="results-grid-container">
+                    <div class="results-grid" id="results-track">
+                        <button class="scene-button" data-video-index="1">
+                            <video autoplay muted loop playsinline preload="metadata">
+                                <source src="assets/video/Lift Ball.mp4" type="video/mp4">
+                            </video>
+                            <span class="scene-caption">Lift Ball</span>
+                        </button>
+                        <button class="scene-button" data-video-index="2">
+                            <video autoplay muted loop playsinline preload="metadata">
+                                <source src="assets/video/Lift Tray.mp4" type="video/mp4">
+                            </video>
+                            <span class="scene-caption">Lift Tray</span>
+                        </button>
+                        <button class="scene-button" data-video-index="3">
+                            <video autoplay muted loop playsinline preload="metadata">
+                                <source src="assets/video/Push Box.mp4" type="video/mp4">
+                            </video>
+                            <span class="scene-caption">Push Box</span>
+                        </button>
+                        <button class="scene-button" data-video-index="4">
+                            <video autoplay muted loop playsinline preload="metadata">
+                                <source src="assets/video/Push Buttons.mp4" type="video/mp4">
+                            </video>
+                            <span class="scene-caption">Push Buttons</span>
+                        </button>
+                        <button class="scene-button" data-video-index="5">
+                            <video autoplay muted loop playsinline preload="metadata">
+                                <source src="assets/video/Put Item into Drawer.mp4" type="video/mp4">
+                            </video>
+                            <span class="scene-caption">Put Item into Drawer</span>
+                        </button>
+                        <button class="scene-button" data-video-index="6">
+                            <video autoplay muted loop playsinline preload="metadata">
+                                <source src="assets/video/Straighten Rope.mp4" type="video/mp4">
+                            </video>
+                            <span class="scene-caption">Straighten Rope</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video gallery carousel -->
+                <div class="video-gallery-carousel" id="gallery-carousel-results">
+
+                    <div class="video-gallery-item active">
+                        <div class="image-video-pair" style="justify-content: center;">
+                            <div class="video-container">
+                                <video preload="none" controls muted loop autoplay>
+                                    <source src="assets/video/all_simulation.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-gallery-item">
+                        <div class="image-video-pair" style="justify-content: center;">
+                            <div class="video-container">
+                                <video preload="none" controls muted loop>
+                                    <source data-src="assets/video/Lift Ball.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-gallery-item">
+                        <div class="image-video-pair" style="justify-content: center;">
+                            <div class="video-container">
+                                <video preload="none" controls muted loop>
+                                    <source data-src="assets/video/Lift Tray.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-gallery-item">
+                        <div class="image-video-pair" style="justify-content: center;">
+                            <div class="video-container">
+                                <video preload="none" controls muted loop>
+                                    <source data-src="assets/video/Push Box.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-gallery-item">
+                        <div class="image-video-pair" style="justify-content: center;">
+                            <div class="video-container">
+                                <video preload="none" controls muted loop>
+                                    <source data-src="assets/video/Push Buttons.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-gallery-item">
+                        <div class="image-video-pair" style="justify-content: center;">
+                            <div class="video-container">
+                                <video preload="none" controls muted loop>
+                                    <source data-src="assets/video/Put Item into Drawer.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-gallery-item">
+                        <div class="image-video-pair" style="justify-content: center;">
+                            <div class="video-container">
+                                <video preload="none" controls muted loop>
+                                    <source data-src="assets/video/Straighten Rope.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End More Results-->
+    <!-- Real-World Tasks -->
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h2 class="title is-2">Real-World Tasks</h2>
+                <figure class="video">
+                    <figcaption>
+                    The real-world platform consists of two UR5e robotic arms equipped with PGI grippers and four flexible piezoresistive tactile arrays, each containing 16×16 sensing units with a spatial resolution of 2 mm. The visual system comprises three Intel RealSense cameras from different viewpoints with a resolution of 640 × 480. We evaluate three categories of challenging tasks: (i) precision assembly, including Hammer into Slot and Insert Peg into Hole; (ii) occlusion handling, including Retrieve Occluded Bag and Retrieve Transparent Object, and (iii) bimanual coordination, including Handover Bread to Plate and Place Food on Plate.
+                </figure>
+                <div class="real-world-video-container">
+                    <video controls muted loop preload="metadata">
+                        <source src="assets/video/real_task.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Real-World Tasks-->
+
+
+    <!-- Comparisons -->
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h2 class="title is-2">Comparisons with Baselines</h2>
+                <figure class="video">
+                    <figcaption>
+                    In real-world, we compare HemiDiff with five SOTA methods: ACT, DP, DP3, DP (RGB+Tactile) with Feature Concat, and VQ-BET.             
+                </figure>
+                <div class="real-world-video-container">
+                    <video controls muted loop preload="metadata">
+                        <source src="assets/video/baselines.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h2 class="title is-2">Generalization</h2>
+                <figure class="video">
+                    <figcaption>
+                    To evaluate the generalization capability of HemiDiff, we introduce five representative industrial perturbations on a real robotic platform: (i) Human interference by changing the target object position at inference time; (ii) Random visual occlusion of a camera view; (iii) Single-sided tactile sensor failure; (iv) Viewpoint perturbation by translating the camera by 3 cm and rotating it by 3°; (v) Abrupt lighting variation during critical manipulation stages.           
+                </figure>
+                <div class="real-world-video-container">
+                    <video controls muted loop preload="metadata">
+                        <source src="assets/video/generalization.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Abstract. -->
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h2 class="title is-2">Abstract</h2>
+                <figure class="image">
+                    <figcaption>
+                    Humans excel at coordinated bimanual manipulation, whereas robots face significant challenges in complex bimanual tasks due to heterogeneous conflicts in multimodal perception and the fragility of fixed input structures. To address this, we propose Hemispheric Diffusion (HemiDiff), a bimanual control framework that unifies perception-specific modalities and physical coordination within a generative policy. HemiDiff employs independently trained modality experts to process heterogeneous sensory inputs and uses an asymmetric perception router to dynamically allocate attention weights between the left and right arms based on occlusion or contact states. In addition, a coordination energy expert is introduced to impose geometric consistency constraints during the denoising process. This design enables adaptation to sensor failures without retraining and effectively mitigates modality dominance issues in asymmetric tasks. Experimental results demonstrate that HemiDiff achieves an average success rate of 76% on real-world tasks, significantly outperforming existing SOTA baselines, while maintaining stable manipulation performance under typical industrial disturbances.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <!--/ Abstract. -->
+
+    <!-- Overview -->
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h2 class="title is-2">Overview</h2>
+                <figure class="image">
+                    <img src="assets/framework.jpg" alt="Overview of HemiDiff" style="width: 100%; height: auto;">
+                    <figcaption>
+                        <strong>Overview of HemiDiff</strong>. The HemiDiff framework consists of three core components. Independent modality experts extract visual, tactile, and point cloud features; an asymmetric perception router dynamically generates modality weights and masks for the left and right arm action subspaces based on global context, enabling perceptual decoupling in asymmetric tasks; and a coordination energy expert injects soft gradients from a physical manifold during denoising, preserving perceptual independence while enforcing physically consistent relative motion between the two arms
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <!--/ Overview -->
+
+    <!-- <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>@misc{zhan2026perpetualwonderlonghorizonactionconditioned4d, 
+       title={PerpetualWonder: Long-Horizon Action-Conditioned 4D Scene Generation}, 
+       author={Jiahao Zhan and Zizhang Li and Hong-Xing Yu and Jiajun Wu}, 
+       year={2026}, 
+       eprint={2602.04876}, 
+       archivePrefix={arXiv}, 
+       primaryClass={cs.CV}, 
+       url={https://arxiv.org/abs/2602.04876}, 
+ }</code></pre>
+        </div>
+    </section> -->
+
+    <div style="margin-bottom: 5rem;"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const videos = document.querySelectorAll('video[muted][loop]');
+
+            const options = {
+                root: null, 
+                threshold: 0.5 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.play();
+                    } else {
+                        entry.target.pause();
+                        entry.target.currentTime = 0; 
+                    }
+                });
+            }, options);
+
+            videos.forEach(video => {
+                observer.observe(video);
+            });
+        });
+
+
+    </script>
+
+    <!-- <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content has-text-centered">
+                        <p>
+                            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+                            <br>
+                            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+
+    <style>
+        body {overflow-x:hidden;}
+    
+    </style>
+</body>
+
+</html>
+
