@@ -109,6 +109,11 @@ h2 {
   font-size: 32px;
 }
 
+.bio-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .one {
   width: 160px;
   height: 160px;
