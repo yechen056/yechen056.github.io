@@ -469,7 +469,7 @@
                 <figure class="image">
                     <img src="assets/teaser.jpg" alt="Teaser" style="width: 100%; height: auto; display: block;">
                     <figcaption>
-                        <strong>HemiDiff</strong> enhances robustness by using an asymmetric routing mechanism to mask failed modalities and dynamically adjust multimodal contributions without retraining, unlike standard early-fusion strategies.
+                        <strong>HemiDiff</strong> enhances robustness by using an asymmetric routing mechanism to mask degraded modalities and dynamically adjust multimodal contributions without retraining, while a coordination energy expert preserves physically consistent inter-arm coordination.
                     </figcaption>
                 </figure>
             </div>
@@ -493,7 +493,7 @@
     <section class="hero is-small">
         <div class="hero-body">
             <div class="container">
-                <h2 class="title is-2">Simulation in RLbench2</h2>
+                <h2 class="title is-2">Simulation in RLBench2</h2>
                 
                 <figure class="video">
                     <figcaption>
@@ -625,7 +625,7 @@
                 <h2 class="title is-2">Real-World Tasks</h2>
                 <figure class="video">
                     <figcaption>
-                    The real-world platform consists of two UR5e robotic arms equipped with PGI grippers and four flexible piezoresistive tactile arrays, each containing 16×16 sensing units with a spatial resolution of 2 mm. The visual system comprises three Intel RealSense cameras from different viewpoints with a resolution of 640 × 480. We evaluate three categories of challenging tasks: (i) precision assembly, including Hammer into Slot and Insert Peg into Hole; (ii) occlusion handling, including Retrieve Occluded Bag and Retrieve Transparent Object, and (iii) bimanual coordination, including Handover Bread to Plate and Place Food on Plate.
+                    The real-world platform consists of two UR5e robotic arms equipped with PGI grippers and four flexible piezoresistive tactile arrays, each containing 16×16 sensing units with a spatial resolution of 2 mm. The visual system comprises three Intel RealSense cameras from different viewpoints with a resolution of 640 × 480. We evaluate three categories of challenging tasks: (i) precision assembly, including Hammer into Slot and Insert Peg into Hole; (ii) occlusion handling, including Retrieve Occluded Bag and Retrieve Transparent Object, and (iii) bimanual coordination, including Handover Bread to Plate and Place Food on Plate. Each task is evaluated over 20 randomized initializations.
                 </figure>
                 <div class="real-world-video-container">
                     <video controls muted loop preload="metadata">
@@ -645,7 +645,7 @@
                 <h2 class="title is-2">Comparisons with Baselines</h2>
                 <figure class="video">
                     <figcaption>
-                    In real-world, we compare HemiDiff with five SOTA methods: ACT, DP, DP3, DP (RGB+Tactile) with Feature Concat, and VQ-BET.             
+                    In the real world, we compare HemiDiff with five SOTA methods: ACT, DP, DP3, DP (RGB+Tactile) with Feature Concat, and VQ-BET. HemiDiff achieves a 76% average success rate and outperforms the strongest baseline by 19 percentage points.
                 </figure>
                 <div class="real-world-video-container">
                     <video controls muted loop preload="metadata">
@@ -662,7 +662,7 @@
                 <h2 class="title is-2">Generalization</h2>
                 <figure class="video">
                     <figcaption>
-                    To evaluate the generalization capability of HemiDiff, we introduce five representative industrial perturbations on a real robotic platform: (i) Human interference by changing the target object position at inference time; (ii) Random visual occlusion of a camera view; (iii) Single-sided tactile sensor failure; (iv) Viewpoint perturbation by translating the camera by 3 cm and rotating it by 3°; (v) Abrupt lighting variation during critical manipulation stages.           
+                    To evaluate the generalization capability of HemiDiff, we introduce five representative real-world perturbations on a real robotic platform: (i) Human interference by changing the target object position at inference time; (ii) Random visual occlusion of a camera view; (iii) Single-sided tactile sensor failure; (iv) Viewpoint perturbation by translating the camera by 3 cm and rotating it by 3°; (v) Lighting variation.
                 </figure>
                 <div class="real-world-video-container">
                     <video controls muted loop preload="metadata">
@@ -680,7 +680,7 @@
                 <h2 class="title is-2">Abstract</h2>
                 <figure class="image">
                     <figcaption>
-                    Humans excel at coordinated bimanual manipulation, whereas robots face significant challenges in complex bimanual tasks due to heterogeneous conflicts in multimodal perception and the fragility of fixed input structures. To address this, we propose Hemispheric Diffusion (HemiDiff), a bimanual control framework that unifies perception-specific modalities and physical coordination within a generative policy. HemiDiff employs independently trained modality experts to process heterogeneous sensory inputs and uses an asymmetric perception router to dynamically allocate attention weights between the left and right arms based on occlusion or contact states. In addition, a coordination energy expert is introduced to impose geometric consistency constraints during the denoising process. This design enables adaptation to sensor failures without retraining and effectively mitigates modality dominance issues in asymmetric tasks. Experimental results demonstrate that HemiDiff achieves an average success rate of 76% on real-world tasks, significantly outperforming existing SOTA baselines, while maintaining stable manipulation performance under typical industrial disturbances.
+                    Bimanual manipulation requires both adaptive multimodal perception and physically consistent inter-arm coordination. Yet existing imitation policies typically couple all sensory inputs through fixed early-fusion structures, which can amplify modality conflicts and fail under asymmetric observations or local perception degradation. We introduce Hemispheric Diffusion (HemiDiff), a compositional diffusion policy for coordinated bimanual manipulation. HemiDiff decomposes multimodal conditioning into independent modality experts and recomposes their denoising predictions through an asymmetric perception router that assigns arm-specific modality weights at inference time. A coordination energy expert further guides the denoising process toward demonstration-consistent relative motion, preserving inter-arm coordination under decoupled perception. Experiments on RLBench2 and a real bimanual robot demonstrate that HemiDiff achieves a 76% average success rate on real-world tasks, outperforming the strongest baseline by 19 percentage points while remaining robust to occlusion, sensor degradation, and viewpoint perturbations.
                     </figcaption>
                 </figure>
             </div>
@@ -696,7 +696,7 @@
                 <figure class="image">
                     <img src="assets/framework.jpg" alt="Overview of HemiDiff" style="width: 100%; height: auto;">
                     <figcaption>
-                        <strong>Overview of HemiDiff</strong>. The HemiDiff framework consists of three core components. Independent modality experts extract visual, tactile, and point cloud features; an asymmetric perception router dynamically generates modality weights and masks for the left and right arm action subspaces based on global context, enabling perceptual decoupling in asymmetric tasks; and a coordination energy expert injects soft gradients from a physical manifold during denoising, preserving perceptual independence while enforcing physically consistent relative motion between the two arms
+                        <strong>Overview of HemiDiff</strong>. The HemiDiff framework consists of three core components. Independent modality experts extract visual, tactile, and point cloud features; an asymmetric perception router dynamically generates modality weights and masks for the left and right arm action subspaces based on global context, enabling perceptual decoupling in asymmetric tasks; and a coordination energy expert injects demonstration-consistent relative-motion guidance during denoising, preserving perceptual independence while enforcing physically consistent relative motion between the two arms.
                     </figcaption>
                 </figure>
             </div>
@@ -772,4 +772,3 @@
 </body>
 
 </html>
-
