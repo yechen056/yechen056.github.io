@@ -252,7 +252,7 @@
         <h2 class="title is-2">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Humans excel at bimanual manipulation, while robots struggle with bimanual tasks due to the high cost of data collection. To address this, we propose the Tool-Action Comprehension (TAC) framework, a cross-modal imitation learning method that directly acquires bimanual skills from human demonstration videos. TAC leverages MASt-3R and Gaussian splatting for 3D scene reconstruction, integrates FoundationPose for 6D tool pose estimation, and employs Grounded-SAM to eliminate hand interference, generating tool-centric strategy representations without teleoperation devices or manual annotations. Inspired by human hierarchical planning, TAC decomposes tasks into high-level target prediction and low-level trajectory generation, unified through a conditional diffusion model to produce smooth and coordinated motions. Experiments demonstrate that TAC achieves a superior success rate of 81.5%, outperforming SOTA methods by a 62.2% margin, and enables scalable learning with novices collecting data 14.9% faster than experts.   
+            Humans excel at bimanual manipulation, while robots struggle with bimanual tasks due to the high cost of data collection. To address this, we propose the Tool-Action Comprehension (TAC) framework, a cross-morphology imitation learning method that directly acquires bimanual skills from human demonstration videos. TAC leverages MASt-3R and Gaussian splatting for 3D scene reconstruction, integrates FoundationPose for 6D tool pose estimation, and employs Grounded-SAM to eliminate hand interference, generating tool-centric strategy representations without teleoperation devices or manual annotations. Inspired by human hierarchical planning, TAC decomposes tasks into high-level target prediction and low-level trajectory generation, unified through a conditional diffusion model to produce smooth and coordinated motions. Experiments demonstrate that TAC achieves a superior success rate of 81.5%, outperforming SOTA methods by a 62.2% margin, and enables scalable learning with novices collecting data 14.9% faster than experts.   
           </div>
       </div>
     </div>
@@ -413,7 +413,7 @@
       <div class="column is-two-thirds">
         <div class="content has-text-justified">
           <p>
-            To comprehensively assess generalisation and robustness, we introduce three types of perturbation tests: (1) camera disturbance, where the camera is randomly shaken to simulate visual disturbances; (2) human interference, where the operator physically perturbs the manipulated object during execution; and (3) unseen objects, where novel items not used in training are introduced during evaluation.      </p>
+            To evaluate the data collection paradigm, we compare natural human demonstration videos used by TAC with GELLO teleoperation, SpaceMouse control, and Xbox-based data collection. These methods are evaluated under the same robot rollout protocol, analyzing collection time, effective demonstration rate, and downstream task success.      </p>
         </div>
       </div>
     </div>
