@@ -183,3 +183,17 @@ body {
 .scroll-container .column {
   flex-shrink: 0; /* 防止列被压缩 */
 }
+
+.author-line {
+  margin-bottom: 0.45rem;
+}
+
+.affiliation-line {
+  margin-top: 0.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.note-line {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+}
