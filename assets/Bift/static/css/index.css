@@ -175,13 +175,46 @@ body {
 }
 
 .scroll-container {
-  display: flex; /* 使用 Flexbox 是更现代、更推荐的方式 */
-  overflow-x: auto; /* 允许横向滚动 */
-  padding-bottom: 15px; /* 给滚动条留出一点空间，防止遮挡内容 */
+  overflow: hidden;
+  padding-bottom: 15px;
+}
+
+.scroll-track {
+  display: flex;
+  width: max-content;
+  animation: bift-scroll-left 90s linear infinite;
+}
+
+.scroll-container:hover .scroll-track {
+  animation-play-state: paused;
 }
 
 .scroll-container .column {
-  flex-shrink: 0; /* 防止列被压缩 */
+  flex-shrink: 0;
+}
+
+@keyframes bift-scroll-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-container {
+    overflow-x: auto;
+  }
+
+  .scroll-track {
+    animation: none;
+  }
+
+  .scroll-track [aria-hidden="true"] {
+    display: none;
+  }
 }
 
 .author-line {
