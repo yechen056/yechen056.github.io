@@ -154,7 +154,7 @@
             </div>
           </div>
           <p style="text-align: justify;">
-            BimanualShift achieves skill transfer from arbitrary pretrained unimanual policies to complex bimanual manipulation tasks by adapting fully frozen unimanual policy priors.
+            BimanualShift adapts frozen pretrained unimanual policies to bimanual manipulation through arm-conditioned residual skill transfer. Instead of learning a full bimanual policy from scratch, it aligns shared bimanual observations to arm-specific inputs and learns lightweight residual coordination for synchronization, spatial avoidance, and contact compensation under few bimanual demonstrations.
           </p>
         </div>
       </div>
@@ -171,7 +171,7 @@
             <img src="./static/images/framework.jpg" alt="Framework" class="image is-fullwidth">
           </div>
           <p class="content has-text-justified mt-4">
-            The framework is built upon frozen pretrained unimanual policies and consists of three core learnable modules. Module 1 (Visual Tracker) uses semantic masks to decouple the shared workspace into arm-specific visual inputs, eliminating attention interference. Module 2 (Action Generator) acts as an adapter that transforms high-level instructions into dynamic skill weights and compensation vectors, guiding the low-level policies to achieve coordinated behaviors. Module 3 (Skill Memory) retrieves relevant past experience and incorporates closed-loop reflection, enabling continual learning and rapid adaptation to new tasks.
+            The framework treats bimanual manipulation as arm-conditioned residual skill transfer over frozen unimanual policy priors. Arm-Conditioned Visual Projection converts the shared workspace into policy-compatible arm-specific observations, Residual Skill Modulation adds lightweight residual actions to frozen policy outputs for dual-arm coordination, and Retrieval-Conditioned Refinement reuses successful executions as residual contexts for long-horizon correction rather than direct trajectory replay.
           </p>
         </div>
       </div>
@@ -185,7 +185,7 @@
           <div class="column is-two-thirds">
             <div class="content has-text-justified">
               <p>
-               We evaluate BimanualShift on six representative bimanual manipulation tasks from RLBench2. RLBench2 extends the widely used unimanual benchmark RLBench to bimanual manipulation scenarios. In simulation, we use two Franka Panda robotic arms equipped with parallel grippers. To fully cover the workspace, we deploy six noise-free RGB-D cameras (256 × 256 resolution) at the front, left shoulder, right shoulder, left wrist, right wrist, and top-down viewpoints.
+               We evaluate BimanualShift on six representative bimanual manipulation tasks from RLBench2 using two Franka Panda arms and six noise-free RGB-D cameras at 256 × 256 resolution. To reflect real-world data-collection costs, the tasks are split into complex 30-demonstration tasks and simpler 100-demonstration tasks. BimanualShift-PerAct achieves the best average success rates in both settings, reaching 31.7% on the complex tasks and 50.7% on the single-action tasks.
               </p>
             </div>
           </div>
@@ -228,7 +228,7 @@
         <div class="column is-two-thirds">
           <div class="content has-text-justified">
             <p>
-            The evaluation involves eight real-world tasks covering diverse challenges: Flower Arrangement and Pouring Water require coordinated stability and smooth motion control; Toasting Completion and Vegetable Sorting test synchronous grasping and timing; Quilt Folding and Cable Routing demand robust control under deformable object dynamics; while Toaster Activation and Block Threading involve heterogeneous actions and high-precision spatial alignment in constrained spaces.
+            The evaluation involves eight real-world tasks covering diverse challenges: Flower Arrangement and Pouring Water require coordinated stability and smooth motion control; Toasting Completion and Vegetable Sorting test synchronous grasping and timing; Quilt Folding and Cable Routing demand robust control under deformable object dynamics; while Toaster Activation and Block Threading involve heterogeneous actions and high-precision spatial alignment in constrained spaces. With only 15 bimanual demonstrations per task, BimanualShift adapts PerAct and Diffusion Policy backbones pretrained on separate unimanual data and improves performance over an end-to-end DP baseline trained from scratch.
             </p>
           </div>
         </div>
@@ -304,7 +304,7 @@
         <div class="column is-two-thirds">
           <div class="content has-text-justified">
             <p>
-              To evaluate the generalization capability of BimanualShift under unseen conditions, we conduct a generalization study on the Block Threading task using the best-performing configuration, BimanualShift-PerAct. Five types of perturbations are considered: unseen object color, unseen object shape, lighting change, left–right task exchange, and unseen background.
+              To evaluate real-world generalization, we conduct a comprehensive study on the Block Threading task using BimanualShift-PerAct. Seven settings are considered: unseen object color, unseen object shape, lighting change, left-right task exchange, unseen background, extreme glare, and camera perturbation. Across these appearance, configuration, and sensing changes, BimanualShift-PerAct consistently outperforms PerAct-LF in stage-wise success rates.
             </p>
           </div>
         </div>
@@ -357,7 +357,7 @@
         <div class="column is-two-thirds">
           <div class="content has-text-justified">
             <p>
-             To validate the reliability of BimanualShift in industrial deployment, we introduce two representative sources of real-world disturbances on the physical robot platform: 1) Extreme Glare, induced by a high-intensity point light to create severe reflections and shadows, and 2) Camera Perturbations, simulated by injecting a 1 cm translational error and a 2° rotational error into the camera extrinsic parameters.
+             To validate reliability under challenging sensing conditions, we evaluate BimanualShift-PerAct on the Block Threading task with extreme glare and camera perturbation. These settings are part of the seven real-world generalization scenarios and test robustness to severe reflections, shadows, and calibration variations on the physical robot platform.
             </p>
           </div>
         </div>
@@ -382,7 +382,7 @@
         <div class="column is-two-thirds">
           <div class="content has-text-justified">
             <p>
-              To evaluate the lifelong learning capability of the skill memory module in BimanualShift, we construct a long-horizon task that requires sequential composition of multiple actions, after the model has learned the Toasting Completion and Toaster Activation skills. The task consists of four actions: Action 1 (inserting the toast into the toaster), Action 2 (pressing the activation button), Action 3 (grasping the toasted bread), and Action 4 (placing the bread onto a plate).            
+              To evaluate retrieval-conditioned residual refinement in long-horizon execution, we construct a task after the model has learned Toasting Completion and Toaster Activation. The task consists of four sequential actions: Insert, Press, Grasp, and Place. With only 5 demonstrations for the novel skill, BimanualShift-PerAct reaches 75.0% overall success, showing that retrieved residual contexts improve long-horizon execution under limited demonstrations.
             </p>
           </div>
         </div>
