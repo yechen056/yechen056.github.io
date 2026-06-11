@@ -78,9 +78,18 @@
       margin-bottom: 8px;
     }
     .scroll-container {
-      overflow-x: auto;
-      overflow-y: hidden;
-      white-space: nowrap;
+      overflow: hidden;
+      padding-bottom: 15px;
+    }
+
+    .scroll-track {
+      display: flex;
+      width: max-content;
+      animation: tac-scroll-left 90s linear infinite;
+    }
+
+    .scroll-container:hover .scroll-track {
+      animation-play-state: paused;
     }
 
     .columns.is-multiline.is-mobile {
@@ -100,6 +109,30 @@
       height: auto; /* Maintain aspect ratio */
       border: 1px solid #bbb; /* Optional border */
       border-radius: 10px; /* Rounded corners */
+    }
+
+    @keyframes tac-scroll-left {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-container {
+        overflow-x: auto;
+      }
+
+      .scroll-track {
+        animation: none;
+      }
+
+      .scroll-track [aria-hidden="true"] {
+        display: none;
+      }
     }
   </style>
 
@@ -267,7 +300,7 @@
       <div class="column is-two-thirds">
         <div class="content has-text-justified">
           <p>
-            TAC takes visual observations, task instructions, and proprioception as inputs. The demonstration parser uses MASt-3R and Gaussian splatting for 3D reconstruction, FoundationPose for pose estimation, and Grounded-SAM for morphological decoupling, automatically converting human videos into structured training data. During deployment, the hierarchical planner first predicts short-term coordinated goals, and the low-level diffusion policy then generates specific, coordinated bimanual trajectories to execute the task.
+            TAC takes visual observations, task instructions, and proprioception as inputs. The demonstration parser uses MASt-3R and Gaussian splatting for 3D reconstruction, FoundationPose for pose estimation, and Grounded-SAM for morphological decoupling, automatically converting human videos into structured training data. The final training samples include hand-removed tool-centric observations and the corresponding 18D tool-pose action labels. During deployment, the hierarchical planner first predicts short-term coordinated goals, and the low-level diffusion policy then generates specific, coordinated bimanual trajectories to execute the task.
           </p>
         </div>
       </div>
@@ -275,13 +308,7 @@
     <div class="columns is-centered">
           <div class="column is-two-thirds">
               <div class="content has-text-centered">
-                <video id="dollyzoom" autoplay controls muted loop playsinline 
-                      width="100%" 
-                      style="aspect-ratio: 21 / 9; border: none !important;
-                          outline: none !important; object-fit: cover;">
-                  <source src="./static/videos/framework.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+                <img src="./static/images/framework.jpg" alt="Technical architecture of the TAC framework" style="width: 100%; height: auto;">
               </div>
     </div>
   </div>
@@ -300,6 +327,7 @@
       </div>
     </div>
     <div class="scroll-container">
+      <div class="scroll-track">
         <div class="column is-narrow has-text-centered">
           <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
             <source src="./static/videos/football.mp4" type="video/mp4">
@@ -329,6 +357,41 @@
           <p>Pull Out Nail</p>
         </div>
         <div class="column is-narrow has-text-centered">
+          <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/block.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Transport block</p>
+        </div>
+        <div class="column is-narrow has-text-centered" aria-hidden="true">
+          <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/football.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Play Football</p>
+        </div>
+        <div class="column is-narrow has-text-centered" aria-hidden="true">
+          <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/blanket.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Stow Blanket</p>
+        </div>
+        <div class="column is-narrow has-text-centered" aria-hidden="true">
+          <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/egg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Flip Fried Egg</p>
+        </div>
+        <div class="column is-narrow has-text-centered" aria-hidden="true">
+          <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
+            <source src="./static/videos/nail.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Pull Out Nail</p>
+        </div>
+        <div class="column is-narrow has-text-centered" aria-hidden="true">
           <video controls autoplay loop muted playsinline  style="width: 380px; height: 300px; object-fit: cover; margin: 10px; border-radius: 10px; border: 1px solid #bbb;">
             <source src="./static/videos/block.mp4" type="video/mp4">
             Your browser does not support the video tag.
