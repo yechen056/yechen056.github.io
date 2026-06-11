@@ -114,6 +114,16 @@ h2 {
   text-justify: inter-word;
 }
 
+.entry-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.entry-text p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .one {
   width: 160px;
   height: 160px;
